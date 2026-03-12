@@ -9,7 +9,7 @@ import { Button } from "@/shared/ui/Button";
 export const Location = () => {
   return (
     <Container
-      className="relative bg-cover bg-center text-background"
+      className="relative bg-cover bg-center text-background max-w-[800px] overflow-hidden min-[800px]:rounded-4xl"
       style={{ backgroundImage: `url(${backgroundImage.src})` }}
     >
       <div className="absolute inset-0 bg-black/60" />

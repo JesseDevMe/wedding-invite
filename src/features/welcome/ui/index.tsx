@@ -7,7 +7,7 @@ import Image from "next/image";
 export const Welcome = () => {
   return (
     <Container
-      className="h-dvh max-h-[850px] relative bg-cover bg-center flex items-center justify-center cursor-pointer"
+      className="h-dvh max-h-[850px] min-h-[680px] relative bg-cover bg-center flex items-center justify-center cursor-pointer"
       style={{ backgroundImage: `url(${backgroundImage.src})` }}
       id="welcome-container"
       onClick={() => {

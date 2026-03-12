@@ -5,7 +5,7 @@ import { Button } from "@/shared/ui/Button";
 export const Chat = () => {
   return (
     <Container
-      className="flex flex-col items-center gap-10 text-background bg-cover bg-center"
+      className="flex flex-col items-center gap-10 text-background bg-cover bg-center min-[800px]:rounded-4xl max-w-[800px]"
       style={{ backgroundImage: `url(${backgroundImage.src})` }}
     >
       <div className="mx-auto">
