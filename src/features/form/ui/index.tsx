@@ -76,7 +76,17 @@ export const Form = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    if (formData["will-come"] === "") {
+      alert("Пожалуйста, выберите, придете ли вы на свадьбу");
+      return;
+    }
+    if (
+      formData["preferences-drinks"].length === 0 &&
+      formData["preferences-drinks-custom"] === ""
+    ) {
+      alert("Пожалуйста, выберите, какие напитки вам предпочтительнее");
+      return;
+    }
   };
 
   return (
