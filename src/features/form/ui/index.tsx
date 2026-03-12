@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Container } from "@/shared/ui/Container";
+import { Button } from "@/shared/ui/Button";
 
 const formConfig = [
   {
@@ -156,17 +157,14 @@ export const Form = () => {
                 value={formData[field.id as keyof FormData] as string}
                 onChange={(e) => handleTextChange(field.id, e.target.value)}
                 rows={4}
-                className="px-4 py-3 border border-wine rounded-lg focus:outline-none focus:border-wine resize-none"
+                className="px-4 py-3 border border-gray-400 rounded-lg focus:outline-none focus:border-wine resize-none"
               />
             )}
           </div>
         ))}
-        <button
-          type="submit"
-          className="px-4 py-2 border-2 border-wine text-wine rounded-2xl w-fit mx-auto bg-transparent font-semibold"
-        >
+        <Button type="submit" variant="primary">
           Отправить
-        </button>
+        </Button>
       </form>
     </Container>
   );

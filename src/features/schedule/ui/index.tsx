@@ -30,7 +30,7 @@ const schedule = [
 
 export const Schedule = () => {
   return (
-    <Container className="flex flex-col gap-10 max-w-[480px]">
+    <Container className="flex flex-col gap-10 max-w-[400px]">
       <h2 className="font-serif text-[32px] text-center text-wine font-semibold">
         Расписание торжества
       </h2>
@@ -58,7 +58,7 @@ const ScheduleItem = ({
   description: string;
 }) => {
   return (
-    <li className="flex gap-[30px]">
+    <li className="flex gap-[30px] items-center">
       <span className="text-2xl [writing-mode:vertical-rl] rotate-180 text-wine font-medium underline underline-offset-1 decoration-1">
         {time}
       </span>

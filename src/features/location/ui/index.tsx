@@ -1,8 +1,10 @@
+"use client";
 import { Container } from "@/shared/ui/Container";
 import backgroundImage from "./location-bg.jpg";
 import mapPin from "./map-pin.svg";
 import locationTextHeader from "./Location-text-header.svg";
 import Image from "next/image";
+import { Button } from "@/shared/ui/Button";
 
 export const Location = () => {
   return (
@@ -30,9 +32,13 @@ export const Location = () => {
           />
           <p>Ресторан “Жар-Птица” г. Севастополь, ул. Ирисовая, 10А</p>
         </div>
-        <button className="px-4 py-2 border-2 border-background rounded-2xl w-fit mx-auto bg-transparent font-semibold">
-          Построить маршрут
-        </button>
+        <Button
+          onClick={() =>
+            window.open("https://yandex.com/maps/-/CPBGeV1-", "_blank")
+          }
+        >
+          Открыть на карте
+        </Button>
       </div>
     </Container>
   );

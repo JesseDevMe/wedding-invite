@@ -1,5 +1,6 @@
 import { Container } from "@/shared/ui/Container";
 import backgroundImage from "./chat-bg.png";
+import { Button } from "@/shared/ui/Button";
 
 export const Chat = () => {
   return (
@@ -26,9 +27,7 @@ export const Chat = () => {
           Спасибо, что станете не только гостями, но и летописцами нашего дня!
         </p>
       </div>
-      <button className="px-4 py-2 border-2 border-background rounded-2xl w-fit mx-auto bg-transparent font-semibold">
-        Присоединиться
-      </button>
+      <Button>Присоединиться</Button>
     </Container>
   );
 };
