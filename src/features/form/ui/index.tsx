@@ -80,6 +80,9 @@ export const Form = () => {
       alert("Пожалуйста, выберите, придете ли вы на свадьбу");
       return;
     }
+    if (formData["will-come"] === "no") {
+      return;
+    }
     if (
       formData["preferences-drinks"].length === 0 &&
       formData["preferences-drinks-custom"] === ""

@@ -1,14 +1,13 @@
 "use client";
 import { Container } from "@/shared/ui/Container";
-import backgroundImage from "./welcome-bg.png";
+import backgroundImage from "@/shared/ui/big-quality-red-bg.jpg";
 import foregroundImage from "./welcome-fg-svg.svg";
 import Image from "next/image";
 
 export const Welcome = () => {
   return (
     <Container
-      className="h-dvh max-h-[850px] min-h-[680px] relative bg-cover bg-center flex items-center justify-center cursor-pointer"
-      style={{ backgroundImage: `url(${backgroundImage.src})` }}
+      className="h-dvh max-h-[850px] min-h-[680px] relative flex items-center justify-center cursor-pointer overflow-hidden"
       id="welcome-container"
       onClick={() => {
         const timerContainer = document.getElementById("timer-container");
@@ -17,6 +16,15 @@ export const Welcome = () => {
         }
       }}
     >
+      <Image
+        src={backgroundImage}
+        alt="Background"
+        fill
+        priority
+        placeholder="blur"
+        className="object-cover object-center -z-10"
+        sizes="100vw"
+      />
       <Image
         src={foregroundImage}
         width={320}

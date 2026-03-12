@@ -2,7 +2,6 @@
 import { Container } from "@/shared/ui/Container";
 import backgroundImage from "./location-bg.jpg";
 import mapPin from "./map-pin.svg";
-import locationTextHeader from "./Location-text-header.svg";
 import Image from "next/image";
 import { Button } from "@/shared/ui/Button";
 
