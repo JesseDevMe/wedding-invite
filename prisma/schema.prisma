@@ -8,9 +8,10 @@ datasource db {
 }
 
 model User {
-  id   String @id @default(dbgenerated("gen_random_uuid()"))
-  name String
-  form Form?
+  id         String  @id @default(dbgenerated("gen_random_uuid()"))
+  name       String
+  inviteLink String?
+  form       Form?
 }
 
 model Form {

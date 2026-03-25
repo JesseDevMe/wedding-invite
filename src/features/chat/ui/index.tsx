@@ -1,8 +1,9 @@
 import { Container } from "@/shared/ui/Container";
 import backgroundImage from "./chat-bg.png";
 import { Button } from "@/shared/ui/Button";
+import Link from "next/link";
 
-export const Chat = () => {
+export const Chat = ({ inviteLink }: { inviteLink: string }) => {
   return (
     <Container
       className="flex flex-col items-center gap-10 text-background bg-cover bg-center min-[800px]:rounded-4xl max-w-[800px]"
@@ -27,7 +28,9 @@ export const Chat = () => {
           Спасибо, что станете не только гостями, но и летописцами нашего дня!
         </p>
       </div>
-      <Button>Присоединиться</Button>
+      <Button>
+        <Link href={inviteLink}>Присоединиться</Link>
+      </Button>
     </Container>
   );
 };

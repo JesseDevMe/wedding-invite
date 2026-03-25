@@ -19,21 +19,25 @@ export default async function Home({
   const tokenValue = (await searchParams)?.token;
   const token = Array.isArray(tokenValue) ? tokenValue[0] : tokenValue;
 
-  const user = await prisma.user.findFirst({
-    where: {
-      id: token,
-    },
-  });
+  const user = token
+    ? await prisma.user.findFirst({
+        where: {
+          id: token,
+        },
+      })
+    : null;
 
   if (!user) {
     forbidden();
   }
 
-  const form = await prisma.form.findFirst({
-    where: {
-      userId: user.id,
-    },
-  });
+  const form = user
+    ? await prisma.form.findFirst({
+        where: {
+          userId: user.id,
+        },
+      })
+    : null;
 
   return (
     <div className="flex min-h-screen items-center justify-center font-sans">
@@ -44,7 +48,7 @@ export default async function Home({
         <Schedule />
         <DressCode />
         <Details />
-        <Chat />
+        <Chat inviteLink={user.inviteLink ?? ""} />
         <Form userId={user.id} form={form ?? undefined} />
         <Contacts />
         <Footer />

@@ -377,10 +377,6 @@ export type FormUpdatepreferencesDrinksInput = {
   push?: string | string[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type FormCreateWithoutUserInput = {
   id?: string
   willCome: string
