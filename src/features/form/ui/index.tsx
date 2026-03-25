@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Container } from "@/shared/ui/Container";
 import { Button } from "@/shared/ui/Button";
+import { saveForm } from "../actions";
+import { FormModel as FormType } from "@/services/db/prisma/models/Form";
 
 const formConfig = [
   {
@@ -48,13 +50,20 @@ interface FormData {
   "music-preferences": string;
 }
 
-export const Form = () => {
+type Props = {
+  userId: string;
+  form?: FormType;
+};
+
+export const Form = ({ userId, form }: Props) => {
   const [formData, setFormData] = useState<FormData>({
-    "will-come": "",
-    "preferences-drinks": [],
-    "preferences-drinks-custom": "",
-    "music-preferences": "",
+    "will-come": form?.willCome ?? "",
+    "preferences-drinks": form?.preferencesDrinks ?? [],
+    "preferences-drinks-custom": form?.preferencesDrinksCustom ?? "",
+    "music-preferences": form?.musicPreferences ?? "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleRadioChange = (fieldId: string, value: string) => {
     setFormData((prev) => ({ ...prev, [fieldId]: value }));
@@ -74,21 +83,46 @@ export const Form = () => {
     setFormData((prev) => ({ ...prev, [fieldId]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
     if (formData["will-come"] === "") {
       alert("Пожалуйста, выберите, придете ли вы на свадьбу");
       return;
     }
-    if (formData["will-come"] === "no") {
-      return;
-    }
+    const willCome = formData["will-come"];
+    const preferencesDrinks =
+      willCome === "no" ? [] : formData["preferences-drinks"];
+    const preferencesDrinksCustom =
+      willCome === "no" ? "" : formData["preferences-drinks-custom"];
+    const musicPreferences =
+      willCome === "no" ? "" : formData["music-preferences"];
+
     if (
-      formData["preferences-drinks"].length === 0 &&
-      formData["preferences-drinks-custom"] === ""
+      willCome !== "no" &&
+      preferencesDrinks.length === 0 &&
+      preferencesDrinksCustom.trim() === ""
     ) {
       alert("Пожалуйста, выберите, какие напитки вам предпочтительнее");
       return;
+    }
+
+    setIsSubmitting(true);
+    setIsSubmitted(false);
+    try {
+      await saveForm({
+        userId,
+        willCome: willCome === "yes" ? "yes" : "no",
+        preferencesDrinks,
+        preferencesDrinksCustom,
+        musicPreferences,
+      });
+
+      setIsSubmitted(true);
+    } catch {
+      alert("Не удалось отправить анкету. Попробуйте еще раз позже.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -105,7 +139,11 @@ export const Form = () => {
         </p>
       </div>
 
-      <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-8"
+        onSubmit={handleSubmit}
+        style={{ pointerEvents: !!form ? "none" : "auto" }}
+      >
         {formConfig.map((field) => (
           <div key={field.id} className="flex flex-col gap-4">
             <h3 className="font-semibold text-lg">
@@ -175,9 +213,18 @@ export const Form = () => {
             )}
           </div>
         ))}
-        <Button type="submit" variant="primary">
-          Отправить
-        </Button>
+        {!form && (
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={isSubmitting || !!form}
+          >
+            {isSubmitting ? "Отправка..." : "Отправить"}
+          </Button>
+        )}
+        {(isSubmitted || !!form) && (
+          <p className="text-center font-medium">Спасибо! Анкета отправлена.</p>
+        )}
       </form>
     </Container>
   );

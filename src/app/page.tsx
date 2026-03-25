@@ -1,3 +1,5 @@
+import prisma from "@/services/db/model/prisma";
+import { forbidden } from "next/navigation";
 import { Location } from "@/features/location";
 import { Timer } from "@/features/timer";
 import { Welcome } from "@/features/welcome";
@@ -9,7 +11,30 @@ import { Form } from "@/features/form";
 import { Contacts } from "@/features/contacts";
 import { Footer } from "@/features/footer";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ token: string | string[] | undefined }>;
+}) {
+  const tokenValue = (await searchParams)?.token;
+  const token = Array.isArray(tokenValue) ? tokenValue[0] : tokenValue;
+
+  const user = await prisma.user.findFirst({
+    where: {
+      id: token,
+    },
+  });
+
+  if (!user) {
+    forbidden();
+  }
+
+  const form = await prisma.form.findFirst({
+    where: {
+      userId: user.id,
+    },
+  });
+
   return (
     <div className="flex min-h-screen items-center justify-center font-sans">
       <main className="min-h-screen w-full">
@@ -20,7 +45,7 @@ export default function Home() {
         <DressCode />
         <Details />
         <Chat />
-        <Form />
+        <Form userId={user.id} form={form ?? undefined} />
         <Contacts />
         <Footer />
       </main>
