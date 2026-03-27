@@ -20,8 +20,9 @@ export const Welcome = () => {
         src={backgroundImage}
         alt="Background"
         fill
-        priority
+        preload
         placeholder="blur"
+        quality={60}
         className="object-cover object-center -z-10"
         sizes="100vw"
       />

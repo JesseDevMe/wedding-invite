@@ -3,7 +3,7 @@ import { Container } from "@/shared/ui/Container";
 const schedule = [
   {
     title: "Welcome",
-    time: "10:00",
+    time: "16:30",
     description: "Сбор гостей",
   },
   {
