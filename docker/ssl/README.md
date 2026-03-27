@@ -20,7 +20,13 @@
 Дальше контейнер `certbot` периодически вызывает `certbot renew` (см. `docker/ssl/renew.sh`).
 
 ### Конфиг nginx
-Шаблоны лежат в `docker/nginx/tpl/` и **не** монтируются в `/etc/nginx/templates`, чтобы официальный образ nginx не создавал второй набор `*.conf` из всех `*.template` (из‑за этого часто бывал **404** на ACME).
+Образ собирается из `docker/nginx/Dockerfile` (контекст — корень репозитория): внутри удаляется `default.conf`, копируются `nginx.conf`, `tpl/` и скрипт `99-render-conf.sh` с **`chmod +x`**.
+
+Раньше при монтировании `docker-entrypoint.d` с Windows скрипт часто **не был исполняемым**: официальный entrypoint nginx запускает только `*.sh` с битом `+x`, поэтому **`app.conf` не создавался**, оставался стандартный `default.conf` → **приветственная страница nginx** и **404** на ACME.
+
+После правок в `docker/nginx/tpl/` или `99-render-conf.sh` пересобери nginx: `docker compose build --no-cache nginx`.
+
+Шаблоны **не** кладём в `/etc/nginx/templates`, чтобы не плодить лишние `*.conf`.
 
 Для HTTP-челленджа используется `listen 80 default_server` и `server_name _`, чтобы запросы с punycode-именем всегда попадали в `location /.well-known/acme-challenge/`.
 
