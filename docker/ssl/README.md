@@ -18,4 +18,6 @@
    `docker compose exec nginx nginx -s reload`
 
 Дальше контейнер `certbot` сам будет делать renew каждые 12 часов (если пора — обновит).
+Nginx в официальном образе рендерит конфиг из `/etc/nginx/templates/*.template` через envsubst при старте,
+поэтому переменная `DOMAIN` должна быть задана в `.env`.
 
