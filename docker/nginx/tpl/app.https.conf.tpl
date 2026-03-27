@@ -1,11 +1,14 @@
+# Порт 80: только ACME (любой Host); остальное — редирект на HTTPS.
 server {
-  listen 80;
-  listen [::]:80;
+  listen 80 default_server;
+  listen [::]:80 default_server;
 
-  server_name ${DOMAIN};
+  server_name _;
 
   location /.well-known/acme-challenge/ {
     root /var/www/certbot;
+    default_type "text/plain";
+    try_files $uri =404;
   }
 
   location / {
@@ -39,4 +42,3 @@ server {
     proxy_read_timeout 60s;
   }
 }
-

@@ -32,5 +32,5 @@ certbot certonly \
   --agree-tos \
   --non-interactive \
   $( [ "${LETSENCRYPT_STAGING}" = "1" ] && echo "--staging" )
-echo "Done. Please reload nginx container."
+echo "Done. Restart nginx so it picks up HTTPS config: docker compose restart nginx"
 
