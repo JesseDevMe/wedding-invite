@@ -29,7 +29,9 @@ export const Chat = ({ inviteLink }: { inviteLink: string }) => {
         </p>
       </div>
       <Button>
-        <Link href={inviteLink}>Присоединиться</Link>
+        <Link href={inviteLink} target="_blank">
+          Присоединиться
+        </Link>
       </Button>
     </Container>
   );
