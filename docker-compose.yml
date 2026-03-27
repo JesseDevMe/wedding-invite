@@ -16,6 +16,7 @@ services:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
+    image: wedding-invite-nginx:latest
     restart: unless-stopped
     depends_on:
       - app

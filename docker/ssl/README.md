@@ -9,6 +9,16 @@
 - `LETSENCRYPT_EMAIL=you@example.com`
 - `LETSENCRYPT_STAGING=0` (для тестов — `1`)
 
+### Деплой на сервер (важно)
+После `git pull` обязательно **пересобери** nginx-образ (тег `wedding-invite-nginx:latest`):
+`docker compose build --no-cache nginx && docker compose up -d nginx app`
+
+Старт nginx идёт через `docker/nginx/entrypoint.sh` (рендер конфига → `nginx -t` → `nginx`), без хака `entrypoint: /bin/sh -c` в compose — так не ломается передача аргументов в Docker.
+
+Если контейнер nginx **в цикле перезапуска**, смотри `docker compose logs nginx`: там будет ошибка `nginx -t` или резолва upstream. Upstream к `app` настроен через переменную и `resolver 127.0.0.11`, чтобы nginx не падал, если DNS ещё не готов.
+
+Если по-прежнему видна страница «Welcome to nginx», проверь логи: `docker compose logs nginx` — должна быть строка `Rendered app.http...` / `Rendered app.https...`.
+
 ### Первый выпуск сертификата
 1) Подними nginx и приложение (на 80 должен отвечать nginx):
    `docker compose up -d --build nginx app`
