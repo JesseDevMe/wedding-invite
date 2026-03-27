@@ -26,6 +26,7 @@ services:
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       # Official nginx image supports envsubst for templates in /etc/nginx/templates/*.template
       - ./docker/nginx/templates:/etc/nginx/templates:ro
+      - ./docker/nginx/docker-entrypoint.d:/docker-entrypoint.d:ro
       - letsencrypt:/etc/letsencrypt
       - certbot_webroot:/var/www/certbot
 

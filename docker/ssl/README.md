@@ -21,3 +21,6 @@
 Nginx в официальном образе рендерит конфиг из `/etc/nginx/templates/*.template` через envsubst при старте,
 поэтому переменная `DOMAIN` должна быть задана в `.env`.
 
+Если nginx падает с ошибкой "cannot load certificate ... No such file or directory" — это нормально до первого выпуска:
+контейнер nginx должен стартовать на 80 и ждать выпуска сертификата; после успешного certbot сделай reload nginx.
+
