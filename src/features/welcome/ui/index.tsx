@@ -22,7 +22,7 @@ export const Welcome = () => {
         fill
         preload
         placeholder="blur"
-        quality={60}
+        quality={100}
         className="object-cover object-center -z-10"
         sizes="100vw"
       />
