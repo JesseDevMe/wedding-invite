@@ -3,17 +3,17 @@ import { Container } from "@/shared/ui/Container";
 const schedule = [
   {
     title: "Welcome",
-    time: "16:30",
+    time: "16:00",
     description: "Сбор гостей",
   },
   {
     title: "Wedding ceremony",
-    time: "17:00",
+    time: "16:30",
     description: "Свадебная церемония. Самое важное событие в нашей жизни!",
   },
   {
     title: "Wedding start",
-    time: "18:00",
+    time: "17:30",
     description: "Время вкусной еды, танцев и веселья",
   },
   {
